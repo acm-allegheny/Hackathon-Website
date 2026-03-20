@@ -340,6 +340,220 @@
   .cta-btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 rgba(0,0,0,0.5); }
   .cta-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 rgba(0,0,0,0.5); }
 
+  /* ── SCHEDULE PAGE ── */
+
+  .schedule-hero {
+    text-align: center;
+    padding: 50px 20px 10px;
+    position: relative;
+  }
+
+  .schedule-eyebrow {
+    font-family: var(--pixel);
+    font-size: 8px;
+    color: var(--pink);
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    animation: blink-border 2s step-end infinite;
+  }
+
+  .schedule-title {
+    font-family: var(--pixel);
+    font-size: clamp(28px, 7vw, 68px);
+    color: var(--white);
+    letter-spacing: 6px;
+    line-height: 1.2;
+    text-shadow: 5px 5px 0 var(--deep), 0 0 30px rgba(255,255,255,0.15);
+    animation: glitch 6s infinite;
+  }
+
+  .schedule-date-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 24px;
+    background: rgba(0,0,0,0.4);
+    border: 2px solid var(--cyan);
+    padding: 12px 28px;
+  }
+
+  .schedule-date-badge .badge-date {
+    font-family: var(--pixel);
+    font-size: clamp(20px, 4vw, 36px);
+    color: var(--cyan);
+    letter-spacing: 2px;
+    text-shadow: 0 0 12px var(--cyan);
+    font-style: italic;
+  }
+
+  .schedule-date-badge .badge-year {
+    font-family: var(--pixel);
+    font-size: clamp(14px, 2.5vw, 22px);
+    color: var(--white);
+    opacity: 0.7;
+    letter-spacing: 2px;
+  }
+
+  .schedule-wrap {
+    max-width: 860px;
+    margin: 50px auto 40px;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .schedule-day {
+    position: relative;
+  }
+
+  .day-header-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 20px;
+  }
+
+  .day-arrow {
+    position: relative;
+    background: var(--white);
+    padding: 10px 20px 10px 16px;
+    clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%);
+    min-width: 130px;
+    text-align: center;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.5);
+    flex-shrink: 0;
+  }
+
+  .day-arrow-3d {
+    position: absolute;
+    top: 4px; left: 4px; right: 4px; bottom: -6px;
+    background: #a0b4e8;
+    clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%);
+    z-index: -1;
+  }
+
+  .day-arrow-label {
+    font-family: var(--pixel);
+    font-size: clamp(11px, 2vw, 16px);
+    color: #1a005a;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .day-title {
+    font-family: var(--pixel);
+    font-size: clamp(14px, 2.5vw, 22px);
+    color: var(--white);
+    letter-spacing: 2px;
+    text-shadow: 3px 3px 0 var(--deep);
+  }
+
+  .day-title span {
+    color: var(--yellow);
+  }
+
+  .schedule-table {
+    background: rgba(80, 40, 160, 0.45);
+    border: 2px solid rgba(255,255,255,0.12);
+    padding: 6px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .schedule-table::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--pink), var(--yellow), var(--cyan));
+  }
+
+  .schedule-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 28px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    transition: background 0.2s;
+  }
+
+  .schedule-row:last-child { border-bottom: none; }
+
+  .schedule-row:hover { background: rgba(255,255,255,0.06); }
+
+  .sched-event {
+    font-family: var(--vt);
+    font-size: clamp(18px, 3vw, 26px);
+    color: var(--yellow);
+    letter-spacing: 1px;
+  }
+
+  .sched-event .event-note {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0;
+    margin-left: 6px;
+    font-family: var(--vt);
+  }
+
+  .sched-time {
+    font-family: var(--pixel);
+    font-size: clamp(9px, 1.6vw, 13px);
+    color: var(--white);
+    letter-spacing: 1px;
+    white-space: nowrap;
+    margin-left: 20px;
+  }
+
+  .schedule-footer {
+    text-align: center;
+    padding: 20px 20px 60px;
+  }
+
+  .sched-location-bar {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+    background: rgba(0,0,0,0.45);
+    border-top: 2px solid rgba(255,255,255,0.12);
+    border-bottom: 2px solid rgba(255,255,255,0.12);
+    padding: 18px 40px;
+    margin-bottom: 40px;
+    width: 100%;
+    max-width: 860px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .sched-loc-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--vt);
+    font-size: clamp(16px, 2.5vw, 22px);
+    color: var(--white);
+    letter-spacing: 2px;
+  }
+
+  .sched-loc-item .loc-icon { font-size: 22px; }
+
+  .sched-loc-item a {
+    color: var(--cyan);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .sched-loc-item a:hover { opacity: 0.7; text-decoration: underline; }
+
+  @media (max-width: 560px) {
+    .schedule-row { padding: 10px 16px; }
+    .day-header-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .day-arrow { min-width: 110px; }
+  }
+
   #wasm-loading {
     position: fixed;
     inset: 0;
@@ -372,6 +586,7 @@
   <div class="nav-logo">ACM<br>ALLEGHENY</div>
   <ul class="nav-links">
     <li><a href="#" data-page="home" class="active" onclick="Module.showPage('home'); return false;">HOME</a></li>
+    <li><a href="#" data-page="schedule" onclick="Module.showPage('schedule'); return false;">SCHEDULE</a></li>
     <li><a href="#" data-page="prizes" onclick="Module.showPage('prizes'); return false;">PRIZES</a></li>
   </ul>
 </nav>
@@ -382,6 +597,7 @@
   </div>
 </div>
 
+<!-- HOME PAGE -->
 <section id="home" class="page active" style="padding-top:90px;">
   <div class="home-hero">
     <div class="acm-badge">ASSOCIATION FOR COMPUTING MACHINERY</div>
@@ -433,6 +649,118 @@
   </div>
 </section>
 
+<!-- SCHEDULE PAGE -->
+<section id="schedule" class="page" style="padding-top:90px;">
+
+  <div class="schedule-hero">
+    <div class="schedule-eyebrow">ACM AFTER HOURS HACKATHON</div>
+    <h2 class="schedule-title">EVENT<br>SCHEDULE</h2>
+    <div class="schedule-date-badge">
+      <span class="badge-date">MAR,</span>
+      <span class="badge-year">2026</span>
+    </div>
+  </div>
+
+  <div class="schedule-wrap">
+
+    <!-- DAY 1 -->
+    <div class="schedule-day">
+      <div class="day-header-row">
+        <div class="day-arrow">
+          <div class="day-arrow-3d"></div>
+          <span class="day-arrow-label">FRI, 27</span>
+        </div>
+        <div class="day-title">DAY 1: <span>HACKATHON</span></div>
+      </div>
+      <div class="schedule-table">
+        <div class="schedule-row">
+          <span class="sched-event">Set Up / Get Merch</span>
+          <span class="sched-time">5 – 5:30</span>
+        </div>
+        <div class="schedule-row">
+          <span class="sched-event">Introductions</span>
+          <span class="sched-time">5:30 PM</span>
+        </div>
+        <div class="schedule-row">
+          <span class="sched-event">Start Coding!</span>
+          <span class="sched-time">6 – 12AM</span>
+        </div>
+        <div class="schedule-row">
+          <span class="sched-event">Dinner and Networking</span>
+          <span class="sched-time">6:30 PM</span>
+        </div>
+        <div class="schedule-row">
+          <span class="sched-event">Break</span>
+          <span class="sched-time">8 – 8:45</span>
+        </div>
+        <div class="schedule-row">
+          <span class="sched-event">Live Demos to Board</span>
+          <span class="sched-time">10 – 10:30</span>
+        </div>
+        <div class="schedule-row">
+          <span class="sched-event">Final Revisions</span>
+          <span class="sched-time">11 – 11:45</span>
+        </div>
+        <div class="schedule-row">
+          <span class="sched-event">Board Game Hour <span class="event-note">(ft. ARGO)</span></span>
+          <span class="sched-time">7 – 12AM</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 2 -->
+    <div class="schedule-day">
+      <div class="day-header-row">
+        <div class="day-arrow">
+          <div class="day-arrow-3d"></div>
+          <span class="day-arrow-label">SAT, 28</span>
+        </div>
+        <div class="day-title">DAY 2: <span>AWARDS</span></div>
+      </div>
+      <div class="schedule-table">
+        <div class="schedule-row">
+          <span class="sched-event">Farewell Cheers</span>
+          <span class="sched-time">6:00 PM</span>
+        </div>
+        <div class="schedule-row">
+          <span class="sched-event">Puppetry Show</span>
+          <span class="sched-time">12:30 PM</span>
+        </div>
+        <div class="schedule-row">
+          <span class="sched-event">Farewell Cheers</span>
+          <span class="sched-time">6:00 PM</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end schedule-wrap -->
+
+  <div class="sched-location-bar">
+    <div class="sched-loc-item">
+      <span class="loc-icon">📍</span>
+      ALDEN HALL, ROOM 101
+    </div>
+    <div class="sched-loc-item">
+      <span class="loc-icon">🌐</span>
+      <a href="https://allegheny-hackathon.netlify.app" target="_blank">ALLEGHENY-HACKATHON.NETLIFY.APP</a>
+    </div>
+  </div>
+
+  <div class="schedule-footer">
+    <div class="diamond-row">
+      <div class="diamond"></div><div class="diamond"></div><div class="diamond"></div>
+      <div class="diamond"></div><div class="diamond"></div><div class="diamond"></div>
+      <div class="diamond"></div><div class="diamond"></div><div class="diamond"></div>
+    </div>
+    <br>
+    <a href="#" class="cta-btn" onclick="Module.showPage('prizes'); return false;">VIEW PRIZES →</a>
+    &nbsp;&nbsp;
+    <a href="#" class="cta-btn" onclick="Module.showPage('home'); return false;" style="background:transparent;color:var(--white);border:2px solid var(--white);box-shadow:none;">← HOME</a>
+  </div>
+
+</section>
+
+<!-- PRIZES PAGE -->
 <section id="prizes" class="page" style="padding-top:90px;">
   <div class="prizes-hero">
     <h2 class="prizes-title">PRIZES &<br>REWARDS</h2>
