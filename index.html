@@ -554,6 +554,107 @@
     .day-arrow { min-width: 110px; }
   }
 
+  /* ── COUNTDOWN ── */
+  .countdown-section {
+    text-align: center;
+    padding: 40px 20px 10px;
+  }
+
+  .countdown-label {
+    font-family: var(--pixel);
+    font-size: 8px;
+    color: var(--pink);
+    letter-spacing: 3px;
+    margin-bottom: 24px;
+    animation: blink-border 2s step-end infinite;
+  }
+
+  .countdown-grid {
+    display: inline-flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+
+  .countdown-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .countdown-box {
+    background: #0a0a0a;
+    border: 3px solid var(--cyan);
+    padding: 16px 10px;
+    min-width: 90px;
+    position: relative;
+    box-shadow: 4px 4px 0 rgba(0,245,255,0.2);
+  }
+
+  .countdown-box::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 0; right: 0;
+    height: 2px;
+    background: rgba(0,245,255,0.15);
+    transform: translateY(-50%);
+  }
+
+  .countdown-num {
+    font-family: var(--pixel);
+    font-size: clamp(28px, 6vw, 48px);
+    color: var(--cyan);
+    letter-spacing: 4px;
+    text-shadow: 0 0 20px rgba(0,245,255,0.6);
+    display: block;
+    min-width: 2ch;
+    text-align: center;
+  }
+
+  .countdown-sep {
+    font-family: var(--pixel);
+    font-size: clamp(28px, 6vw, 48px);
+    color: rgba(255,255,255,0.3);
+    align-self: flex-start;
+    padding-top: 16px;
+    line-height: 1;
+  }
+
+  .countdown-unit-label {
+    font-family: var(--pixel);
+    font-size: 7px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 2px;
+  }
+
+  .happy-hacking {
+    display: none;
+    text-align: center;
+    padding: 40px 20px 10px;
+  }
+
+  .happy-hacking a {
+    font-family: var(--pixel);
+    font-size: clamp(18px, 4vw, 36px);
+    color: var(--yellow);
+    text-decoration: none;
+    letter-spacing: 4px;
+    line-height: 1.5;
+    text-shadow: 3px 3px 0 #7a5200, 0 0 30px rgba(255,214,10,0.5);
+    animation: prize-glow 1.5s ease-in-out infinite, glitch 4s infinite;
+    display: inline-block;
+    border-bottom: 3px solid var(--yellow);
+    padding-bottom: 6px;
+    transition: color 0.2s;
+  }
+
+  .happy-hacking a:hover {
+    color: var(--white);
+    text-shadow: 3px 3px 0 var(--deep), 0 0 30px rgba(255,255,255,0.5);
+  }
+
   #wasm-loading {
     position: fixed;
     inset: 0;
@@ -612,6 +713,37 @@
     </div>
     <div class="reg-banner">REGISTRATION OPEN NOW !</div>
     <p class="hero-subtitle">ONE COMMUNITY. INFINITE IMPACT.</p>
+  </div>
+
+  <!-- COUNTDOWN -->
+  <div class="countdown-section" id="countdown-section">
+    <div class="countdown-label">▸ HACKATHON STARTS IN</div>
+    <div class="countdown-grid">
+      <div class="countdown-unit">
+        <div class="countdown-box"><span class="countdown-num" id="cd-days">00</span></div>
+        <span class="countdown-unit-label">DAYS</span>
+      </div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit">
+        <div class="countdown-box"><span class="countdown-num" id="cd-hours">00</span></div>
+        <span class="countdown-unit-label">HOURS</span>
+      </div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit">
+        <div class="countdown-box"><span class="countdown-num" id="cd-mins">00</span></div>
+        <span class="countdown-unit-label">MINS</span>
+      </div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit">
+        <div class="countdown-box"><span class="countdown-num" id="cd-secs">00</span></div>
+        <span class="countdown-unit-label">SECS</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HAPPY HACKING (shown when countdown expires) -->
+  <div class="happy-hacking" id="happy-hacking">
+    <a href="https://github.com" target="_blank">✦ HAPPY HACKING ✦</a>
   </div>
 
   <div class="info-grid">
@@ -813,6 +945,37 @@
 </section>
 
 
+<script>
+  // Hackathon start: Friday March 27 2026, 5:00 PM local time
+  const TARGET = new Date('2026-03-27T17:00:00');
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function tick() {
+    const now = new Date();
+    const diff = TARGET - now;
+
+    if (diff <= 0) {
+      document.getElementById('countdown-section').style.display = 'none';
+      document.getElementById('happy-hacking').style.display = 'block';
+      return;
+    }
+
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000)  / 60000);
+    const secs  = Math.floor((diff % 60000)    / 1000);
+
+    document.getElementById('cd-days').textContent  = pad(days);
+    document.getElementById('cd-hours').textContent = pad(hours);
+    document.getElementById('cd-mins').textContent  = pad(mins);
+    document.getElementById('cd-secs').textContent  = pad(secs);
+  }
+
+  tick();
+  setInterval(tick, 1000);
+</script>
+
 <script src="hackathon.js"></script>
 <script>
   Module.onRuntimeInitialized = function() {
@@ -824,3 +987,4 @@
 
 </body>
 </html>
+
