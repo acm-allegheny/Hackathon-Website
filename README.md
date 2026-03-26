@@ -1,3 +1,3 @@
-# Website for The 2026 Spring Hackathon Event
+# 2026 Spring Hackathon's Website - Allegheny College
 
-https://allegheny-hackathon.netlify.app/
+[Allegheny Hackathon Website](https://allegheny-hackathon.netlify.app/)
