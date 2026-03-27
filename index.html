@@ -288,6 +288,74 @@
       color: var(--yellow);
     }
 
+    .accordion-container {
+      margin-top: 12px;
+    }
+
+    .accordion-item {
+      margin-bottom: 8px;
+    }
+
+    .accordion-header {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 14px;
+      color: var(--white);
+      font-family: var(--vt);
+      font-size: 18px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    .accordion-header:hover {
+      background: rgba(255, 214, 10, 0.1);
+      border-color: var(--yellow);
+    }
+
+    .accordion-title {
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+
+    .accordion-icon {
+      color: var(--yellow);
+      font-size: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .accordion-header.active .accordion-icon {
+      transform: rotate(45deg);
+      color: var(--cyan);
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0.3);
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: none;
+    }
+
+    .accordion-content.open {
+      max-height: 200px;
+      padding: 12px 14px;
+    }
+
+    .accordion-content p {
+      font-family: var(--vt);
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.6;
+      margin: 0;
+      letter-spacing: 0.5px;
+    }
+
     .prize-callout {
       text-align: center;
       margin: 40px auto 60px;
@@ -450,7 +518,8 @@
       text-align: center;
       position: relative;
       overflow: hidden;
-      transition: transform 0.3s, border-color 0.3s;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s, box-shadow 0.3s;
+      cursor: pointer;
     }
 
     .prize-card::before {
@@ -461,19 +530,78 @@
       right: 0;
       height: 3px;
       background: linear-gradient(90deg, var(--pink), var(--yellow), var(--cyan));
+      animation: top-bar-glow 2s ease-in-out infinite;
+    }
+
+    @keyframes top-bar-glow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 rgba(255, 214, 10, 0.5);
+      }
+
+      50% {
+        box-shadow: 0 0 10px rgba(255, 214, 10, 0.8);
+      }
+    }
+
+    .prize-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 214, 10, 0.15) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
     }
 
     .prize-card:hover {
-      transform: translateY(-6px) scale(1.02);
-      border-color: var(--yellow);
+      transform: translateY(-10px) scale(1.05) rotateX(5deg);
+      border-color: var(--cyan);
+      box-shadow: 0 20px 40px rgba(0, 245, 255, 0.3), inset 0 0 20px rgba(255, 214, 10, 0.1);
+    }
+
+    .prize-card:hover::after {
+      opacity: 1;
     }
 
     .prize-rank {
       font-family: var(--pixel);
       font-size: 8px;
-      color: var(--pink);
+      color: var(--yellow);
       letter-spacing: 2px;
       margin-bottom: 14px;
+      animation: rank-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes rank-pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        text-shadow: 0 0 0 transparent;
+      }
+
+      50% {
+        opacity: 0.8;
+        text-shadow: 0 0 10px var(--yellow);
+      }
+    }
+
+    .prize-card:nth-child(1) .prize-rank {
+      color: #ffd700;
+    }
+
+    .prize-card:nth-child(2) .prize-rank {
+      color: #c0c0c0;
+    }
+
+    .prize-card:nth-child(3) .prize-rank {
+      color: #cd7f32;
+    }
+
+    .prize-card:nth-child(4) .prize-rank {
+      color: var(--pink);
     }
 
     .prize-icon {
@@ -481,6 +609,39 @@
       display: block;
       margin: 0 auto 16px;
       filter: drop-shadow(0 0 12px rgba(255, 214, 10, 0.5));
+      animation: icon-bounce 2s ease-in-out infinite;
+      transition: transform 0.3s;
+    }
+
+    @keyframes icon-bounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    .prize-card:hover .prize-icon {
+      animation: icon-spin 0.6s ease-in-out;
+      filter: drop-shadow(0 0 20px rgba(255, 214, 10, 0.9));
+    }
+
+    @keyframes icon-spin {
+      0% {
+        transform: rotateY(0deg) scale(1);
+      }
+
+      50% {
+        transform: rotateY(180deg) scale(1.2);
+      }
+
+      100% {
+        transform: rotateY(360deg) scale(1);
+      }
     }
 
     .prize-name {
@@ -489,6 +650,31 @@
       color: var(--white);
       line-height: 1.8;
       letter-spacing: 1px;
+      animation: name-slide-in 0.6s ease-out;
+    }
+
+    @keyframes name-slide-in {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .prize-card:nth-child(2) .prize-name {
+      animation-delay: 0.1s;
+    }
+
+    .prize-card:nth-child(3) .prize-name {
+      animation-delay: 0.2s;
+    }
+
+    .prize-card:nth-child(4) .prize-name {
+      animation-delay: 0.3s;
     }
 
     .prize-detail {
@@ -497,6 +683,12 @@
       color: rgba(255, 255, 255, 0.6);
       margin-top: 8px;
       letter-spacing: 1px;
+      transition: color 0.3s;
+    }
+
+    .prize-card:hover .prize-detail {
+      color: var(--cyan);
+      text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
     }
 
     .total-banner {
@@ -510,6 +702,17 @@
       color: rgba(255, 255, 255, 0.7);
       letter-spacing: 4px;
       margin-bottom: 10px;
+      animation: label-fade-in 0.8s ease-out;
+    }
+
+    @keyframes label-fade-in {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
     }
 
     .total-amount {
@@ -518,7 +721,19 @@
       color: var(--yellow);
       text-shadow: 4px 4px 0 #5a3c00, 0 0 40px rgba(255, 214, 10, 0.6);
       letter-spacing: 4px;
-      animation: prize-glow 2s ease-in-out infinite;
+      animation: prize-glow 2s ease-in-out infinite, total-amount-bounce 3s ease-in-out infinite;
+    }
+
+    @keyframes total-amount-bounce {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.1);
+      }
     }
 
     .ticker {
@@ -574,6 +789,82 @@
       box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
     }
 
+    .mentors-hero {
+      text-align: center;
+      padding: 50px 20px 20px;
+    }
+
+    .mentors-title {
+      font-family: var(--pixel);
+      font-size: clamp(20px, 4vw, 40px);
+      color: var(--white);
+      letter-spacing: 4px;
+      line-height: 1.5;
+      text-shadow: 4px 4px 0 var(--deep);
+    }
+
+    .mentors-carousel {
+      display: flex;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      gap: 0;
+      width: 100%;
+      height: 100vh;
+      padding: 0;
+      margin: 0;
+      scroll-snap-type: x mandatory;
+    }
+
+    .mentors-carousel::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .mentors-carousel::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .mentors-carousel::-webkit-scrollbar-thumb {
+      background: var(--cyan);
+      border-radius: 4px;
+    }
+
+    .mentors-carousel::-webkit-scrollbar-thumb:hover {
+      background: var(--yellow);
+    }
+
+    .mentor-image {
+      flex: 0 0 100%;
+      height: 100vh;
+      width: 100%;
+      border-radius: 0;
+      object-fit: contain;
+      cursor: grab;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      animation: carousel-fade-in 0.6s ease-out;
+      transition: filter 0.3s;
+      filter: brightness(1) drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+    }
+
+    .mentor-image:active {
+      cursor: grabbing;
+    }
+
+    @keyframes carousel-fade-in {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    .mentor-image:hover {
+      filter: brightness(1.15) drop-shadow(0 20px 50px rgba(255, 214, 10, 0.6));
+    }
+
     #wasm-loading {
       position: fixed;
       inset: 0;
@@ -594,6 +885,98 @@
       letter-spacing: 3px;
       animation: blink-border 1s step-end infinite;
     }
+
+    .problems-hero {
+      text-align: center;
+      padding: 50px 20px 20px;
+    }
+
+    .problems-title {
+      font-family: var(--pixel);
+      font-size: clamp(20px, 4vw, 40px);
+      color: var(--white);
+      letter-spacing: 4px;
+      line-height: 1.5;
+      text-shadow: 4px 4px 0 var(--deep);
+    }
+
+    .problems-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      max-width: 1100px;
+      margin: 50px auto;
+      padding: 0 24px;
+    }
+
+    @media (max-width: 900px) {
+      .problems-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .problem-card {
+      background: rgba(0, 0, 0, 0.35);
+      border: 2px solid rgba(255, 255, 255, 0.12);
+      padding: 30px 24px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+
+    .problem-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--pink), var(--yellow), var(--cyan));
+      animation: top-bar-glow 2s ease-in-out infinite;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      border-color: var(--cyan);
+      box-shadow: 0 20px 40px rgba(0, 245, 255, 0.3), inset 0 0 20px rgba(255, 214, 10, 0.1);
+    }
+
+    .problem-icon {
+      font-size: 48px;
+      display: block;
+      margin-bottom: 16px;
+      filter: drop-shadow(0 0 12px rgba(255, 214, 10, 0.5));
+      animation: icon-bounce 2s ease-in-out infinite;
+    }
+
+    .problem-card:hover .problem-icon {
+      animation: icon-spin 0.6s ease-in-out;
+      filter: drop-shadow(0 0 20px rgba(255, 214, 10, 0.9));
+    }
+
+    .problem-title {
+      font-family: var(--pixel);
+      font-size: clamp(10px, 2vw, 13px);
+      color: var(--yellow);
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+
+    .problem-text {
+      font-family: var(--vt);
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.7;
+      letter-spacing: 0.5px;
+      transition: color 0.3s;
+    }
+
+    .problem-card:hover .problem-text {
+      color: var(--cyan);
+      text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+    }
   </style>
 </head>
 
@@ -607,14 +990,17 @@
     <div class="nav-logo">ACM<br>ALLEGHENY</div>
     <ul class="nav-links">
       <li><a href="#" data-page="home" class="active" onclick="Module.showPage('home'); return false;">HOME</a></li>
+      <li><a href="#" data-page="problems" onclick="Module.showPage('problems'); return false;">PROBLEM STATEMENTS</a>
+      </li>
       <li><a href="#" data-page="prizes" onclick="Module.showPage('prizes'); return false;">PRIZES</a></li>
+      <li><a href="#" data-page="mentors" onclick="Module.showPage('mentors'); return false;">MENTORS</a></li>
     </ul>
   </nav>
 
   <div class="ticker" style="position:fixed;top:52px;left:0;right:0;z-index:99;">
     <div class="ticker-inner">
-      ◆ REGISTRATION OPEN NOW ◆ MARCH 21 ◆ 5PM TO 12AM ◆ ALDEN HALL 101 ◆ WIN UP TO $4500 IN PRIZES ◆ REGISTRATION OPEN
-      NOW ◆ MARCH 21 ◆ 5PM TO 12AM ◆ ALDEN HALL 101 ◆ WIN UP TO $4500 IN PRIZES ◆
+      ◆ REGISTRATION OPEN NOW ◆ MARCH 27 ◆ 5PM TO 12AM ◆ ALDEN HALL 101 ◆ WIN UP TO $4500 IN PRIZES ◆ REGISTRATION OPEN
+      NOW ◆ MARCH 27 ◆ 5PM TO 12AM ◆ ALDEN HALL 101 ◆ WIN UP TO $4500 IN PRIZES ◆
     </div>
   </div>
 
@@ -649,17 +1035,45 @@
     <div class="info-grid">
       <div class="info-card">
         <span class="card-label">▸ FIND A SOLUTION IN ONE OF THESE FIELDS</span>
-        <ul class="fields-list">
-          <li>COMPUTER SCIENCE</li>
-          <li>EDUCATION</li>
-          <li>BUSINESS / ECONOMICS</li>
-          <li>ENVIRONMENTAL SCIENCE</li>
-        </ul>
+        <div class="accordion-container">
+          <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+              <span class="accordion-title">🌍 SUSTAINABILITY</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>Many campuses generate large amounts of food waste, plastic waste, and improperly sorted recycling.
+                Waste management is expensive and inefficient because bins fill unpredictably and recycling
+                contamination is high.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+              <span class="accordion-title">📚 EDUCATION / CS</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>Computer science instructors for primary education environments often struggle to effectively monitor
+                and assess student progress or maintain the attention of their audience.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+              <span class="accordion-title">📊 MARKETING / BUSINESS</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>Many organizations collect data (sales, website visits, social media engagement, event attendance), but
+                they struggle to turn that data into actionable insights that improve outreach, marketing effectiveness,
+                and customer engagement.</p>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="info-card">
         <span class="card-label">▸ EVENT DETAILS</span>
         <div class="card-content">
-          📅 MARCH 21<br>
+          📅 MARCH 27<br>
           🕔 5:00 PM – 12:00 AM<br>
           📍 ALDEN HALL 101<br><br>
           <span style="color:var(--yellow);font-size:18px;">Organized by ACM<br>Allegheny Chapter</span>
@@ -677,7 +1091,7 @@
     </div>
 
     <div class="event-bar">
-      <span>MARCH 21</span> &nbsp;–&nbsp; <span>5PM TO 12AM</span> &nbsp;–&nbsp; <span>ALDEN 101</span>
+      <span>MARCH 27</span> &nbsp;–&nbsp; <span>5PM TO 12AM</span> &nbsp;–&nbsp; <span>ALDEN 101</span>
     </div>
 
     <div class="timeline-section">
@@ -747,27 +1161,27 @@
     <div class="prizes-grid">
       <div class="prize-card">
         <div class="prize-rank">🥇 GRAND PRIZE</div>
+        <span class="prize-icon">📱</span>
+        <div class="prize-name">APPLE IPAD AIR 7<br>11" SPACE GREY</div>
+        <div class="prize-detail">M2 Chip · Wi-Fi</div>
+      </div>
+      <div class="prize-card">
+        <div class="prize-rank">🥈 2ND PLACE</div>
         <span class="prize-icon">📺</span>
         <div class="prize-name">HISENSE 43"<br>QLED TV</div>
         <div class="prize-detail">QD6 Series · 4K</div>
       </div>
       <div class="prize-card">
-        <div class="prize-rank">🎮 GAMING PRIZE</div>
-        <span class="prize-icon">🕹️</span>
-        <div class="prize-name">NINTENDO<br>SWITCH 2</div>
-        <div class="prize-detail">+ Mario Kart World</div>
-      </div>
-      <div class="prize-card">
-        <div class="prize-rank">🎧 AUDIO PRIZE</div>
+        <div class="prize-rank">🥉 3RD PLACE</div>
         <span class="prize-icon">🎧</span>
         <div class="prize-name">APPLE AIRPODS<br>4TH GENERATION</div>
         <div class="prize-detail">Active Noise Cancellation</div>
       </div>
       <div class="prize-card">
-        <div class="prize-rank">💻 TECH PRIZE</div>
-        <span class="prize-icon">📱</span>
-        <div class="prize-name">APPLE IPAD AIR 7<br>11" SPACE GREY</div>
-        <div class="prize-detail">M2 Chip · Wi-Fi</div>
+        <div class="prize-rank">⭐ SUPERLATIVES</div>
+        <span class="prize-icon">🕹️</span>
+        <div class="prize-name">NINTENDO<br>SWITCH 2</div>
+        <div class="prize-detail">+ Mario Kart World</div>
       </div>
     </div>
 
@@ -791,16 +1205,76 @@
       </div>
       <br>
       <p style="font-family:var(--vt);font-size:22px;letter-spacing:3px;color:rgba(255,255,255,0.7);">
-        MARCH 21 &nbsp;·&nbsp; 5PM–12AM &nbsp;·&nbsp; ALDEN HALL 101
+        MARCH 27 &nbsp;·&nbsp; 5PM–12AM &nbsp;·&nbsp; ALDEN HALL 101
       </p>
       <a href="#" class="cta-btn" onclick="Module.showPage('home'); return false;" style="margin-top:30px;">← BACK TO
         HOME</a>
     </div>
   </section>
 
+  <section id="problems" class="page" style="padding-top:90px;">
+    <div class="problems-hero">
+      <h2 class="problems-title">HACKATHON<br>PROBLEM STATEMENTS</h2>
+    </div>
+
+    <div class="problems-grid">
+      <div class="problem-card">
+        <span class="problem-icon">🌍</span>
+        <h3 class="problem-title">SUSTAINABILITY</h3>
+        <p class="problem-text">How can technology help campuses reduce waste, improve recycling accuracy, and make
+          waste management more efficient?</p>
+      </div>
+      <div class="problem-card">
+        <span class="problem-icon">📊</span>
+        <h3 class="problem-title">MARKETING / BUSINESS</h3>
+        <p class="problem-text">How can organizations use data to better understand their audience and make smarter
+          marketing decisions?</p>
+      </div>
+      <div class="problem-card">
+        <span class="problem-icon">📚</span>
+        <h3 class="problem-title">EDUCATION / CS</h3>
+        <p class="problem-text">How can we build tools that help instructors teach programming more effectively and
+          support student learning?</p>
+      </div>
+    </div>
+
+    <div class="total-banner">
+      <br><br>
+      <a href="#" class="cta-btn" onclick="Module.showPage('home'); return false;" style="margin-top:30px;">← BACK TO
+        HOME</a>
+    </div>
+  </section>
+
+
+  <section id="mentors" class="page" style="padding-top:0;">
+    <div class="mentors-carousel">
+      <img src="colton.png" alt="Colton McCurdy" class="mentor-image">
+      <img src="jake.png" alt="Jake Sutter" class="mentor-image">
+      <img src="will.png" alt="Will Yaworsky" class="mentor-image">
+    </div>
+  </section>
 
   <script src="hackathon.js"></script>
   <script>
+    function toggleAccordion(button) {
+      const content = button.nextElementSibling;
+      const isOpen = content.classList.contains('open');
+
+      // Close all accordion items
+      document.querySelectorAll('.accordion-content').forEach(item => {
+        item.classList.remove('open');
+      });
+      document.querySelectorAll('.accordion-header').forEach(header => {
+        header.classList.remove('active');
+      });
+
+      // Open clicked item if it wasn't open
+      if (!isOpen) {
+        content.classList.add('open');
+        button.classList.add('active');
+      }
+    }
+
     Module.onRuntimeInitialized = function () {
       const loader = document.getElementById('wasm-loading');
       loader.style.opacity = '0';
